@@ -1,145 +1,182 @@
-# F1-Driver-performance-analysis
+# 🏎️ F1 Driver Performance Analysis & Ranking System
 
-🏎️ F1 Driver Performance Analysis & Ranking System
-📌 Project Overview
+## 📌 Project Overview
 
-This project performs an end-to-end data science and machine learning analysis of Formula 1 driver performance using historical race data.
-By combining feature engineering, statistical analysis, clustering, and dimensionality reduction, the system builds a custom driver ranking framework and identifies distinct driver performance archetypes across multiple seasons.
+This project presents an end-to-end **Data Science and Machine Learning analysis of Formula 1 driver performance** using historical race data.
+The goal is to **quantitatively evaluate, compare, and rank F1 drivers** across seasons by engineering meaningful performance metrics and applying unsupervised learning techniques.
 
-The analysis focuses on modern F1 seasons (2010 onwards) to ensure relevance and consistency.
+The analysis combines **exploratory data analysis, feature engineering, clustering, and dimensionality reduction** to uncover performance patterns, driver archetypes, and long-term trends in Formula 1.
 
-📊 Dataset
+---
 
-Source: Ergast Formula 1 Dataset (via Kaggle)
+## 📊 Dataset
 
-Coverage: 1950–2023 (analysis focused on 2010–2023)
+* **Source:** Kaggle – Formula 1 Race Data (Ergast API dump)
+* **Coverage:** 1950 – 2023
+* **Key Tables Used:**
 
-Data Used:
+  * `races`
+  * `results`
+  * `drivers`
+  * `constructors`
+  * `qualifying`
+  * `circuits`
 
-Race results
+This dataset provides comprehensive information about race outcomes, driver details, constructors, qualifying positions, and circuits.
 
-Drivers and constructors
+---
 
-Qualifying positions
+## 🔧 Data Processing & Feature Engineering
 
-Circuits and race metadata
+The raw datasets are merged into a unified analytical table using race IDs, driver IDs, and constructor IDs.
 
-🔧 Data Processing & Feature Engineering
+Key preprocessing steps include:
 
-Multiple relational datasets were merged to create a unified race-level table.
-Key engineered features include:
+* Handling missing and non-numeric race positions (DNFs, disqualifications)
+* Creating a **DNF indicator**
+* Calculating **qualifying vs race position delta**
+* Restricting analysis to modern F1 seasons (2010 onwards) for relevance
 
-Average finishing position
+---
 
-Points per race
+## 📈 Driver Performance Metrics
 
-Driver consistency (position variance)
+For each **driver-season**, the following metrics are computed:
 
-DNF (Did Not Finish) rate
+* Total races participated
+* Total points scored
+* Points per race
+* Average finishing position
+* Consistency score (inverse of position variance)
+* DNF rate
+* Average qualifying vs race performance delta
 
-Qualifying vs race performance delta
+### 🏁 Custom Performance Score
 
-Custom Performance Score using a weighted scoring formula
+A weighted composite score is designed to rank drivers:
 
-Drivers with insufficient race participation were filtered to maintain fairness and statistical reliability.
+* Points per race (performance output)
+* Average finishing position (race quality)
+* Consistency score (stability)
+* Qualifying efficiency (race execution)
 
-📈 Exploratory Data Analysis
+This score enables **objective driver ranking across seasons**.
 
-The project includes extensive analysis and visualization of:
+---
 
-Top drivers per season (2015–2023)
+## 🏆 Key Analyses Performed
 
-Driver performance trends over time
+### 1. **Top Drivers Per Season**
 
-Constructor dominance and championship impact
+* Identifies the top-performing drivers for selected seasons
+* Tracks performance evolution over time
 
-Circuit-wise driver performance using heatmaps
+### 2. **Constructor Dominance Analysis**
 
-Year-over-year driver improvement and decline patterns
+* Evaluates constructor influence on driver success
+* Visualizes championship trends across seasons
 
-Interactive visualizations were built using Plotly, alongside Matplotlib and Seaborn for statistical plots.
+### 3. **Track-wise Driver Performance**
 
-🤖 Machine Learning Component
-Driver Clustering
+* Analyzes how top drivers perform across different circuits
+* Uses heatmaps to reveal track-specific strengths
 
-Algorithm: K-Means
+### 4. **Driver Improvement Analysis**
 
-Features: Points per race, average position, consistency score, DNF rate, qualifying performance, performance score
+* Measures year-over-year improvement and decline
+* Highlights rising talents and performance drops
 
-Optimization: Elbow method and Silhouette score
+---
 
-The clustering process identified distinct driver archetypes, such as:
+## 🤖 Machine Learning Components
 
-Elite championship contenders
+### 🔹 K-Means Clustering
 
-Consistent midfield performers
+Drivers are clustered based on average performance characteristics:
 
-High-risk / high-variance drivers
+* Points per race
+* Consistency
+* Average finishing position
+* DNF rate
+* Qualifying performance
 
-Developing or declining drivers
+This identifies **distinct driver archetypes**, such as:
 
-🔬 Dimensionality Reduction (PCA)
+* Elite consistent performers
+* High-risk high-reward drivers
+* Midfield steady drivers
 
-Principal Component Analysis (PCA) was applied to:
+Cluster quality is validated using **Silhouette Score** and the **Elbow Method**.
 
-Identify key performance dimensions
+---
 
-Reduce feature complexity
+### 🔹 Principal Component Analysis (PCA)
 
-Visualize driver clusters in 2D space
+* Reduces high-dimensional performance metrics into key latent dimensions
+* Demonstrates that **2–3 components explain most performance variance**
+* Visualizes drivers in a low-dimensional performance space
 
-Results show that 2–3 principal components explain most of the variance in driver performance.
+---
 
-📡 Advanced Visual Comparisons
+## 📊 Visualizations
 
-Radar charts comparing top drivers across multiple performance metrics
+The project includes rich, interactive visualizations:
 
-PCA scatter plots highlighting cluster separation
+* Time-series performance plots
+* Constructor dominance trends
+* Heatmaps of driver vs circuit performance
+* PCA cluster projections
+* Radar charts comparing top drivers across metrics
 
-Performance trend visualizations across seasons
+Libraries used:
 
-🎯 Key Insights
+* Matplotlib & Seaborn
+* Plotly (interactive charts)
 
-Consistency plays a critical role in long-term success, not just peak race results
+---
 
-Constructor dominance significantly influences driver performance outcomes
+## 🎯 Key Insights
 
-Qualifying performance strongly correlates with race results
+* Driver performance can be effectively captured using a small set of engineered metrics
+* Consistency plays a critical role in championship success
+* Constructor dominance significantly influences driver rankings
+* Clustering reveals meaningful driver performance archetypes
+* Qualifying performance has a strong correlation with race outcomes
 
-Driver performance patterns can be effectively represented using low-dimensional feature spaces
+---
 
-🛠️ Tech Stack
+## 🛠 Tech Stack
 
-Python
+* **Python**
+* **Pandas, NumPy**
+* **Scikit-learn**
+* **Matplotlib, Seaborn**
+* **Plotly**
+* **Google Colab**
 
-Pandas, NumPy
+---
 
-Scikit-learn
+## 🚀 How to Run
 
-Matplotlib, Seaborn
+1. Open the notebook in **Google Colab**
+2. Install required libraries (handled in the notebook)
+3. Download dataset automatically via `kagglehub`
+4. Run all cells sequentially to reproduce analysis and visualizations
 
-Plotly (Interactive Visualizations)
+---
 
-Google Colab
+## 📌 Future Improvements
 
-🚀 Future Improvements
+* Incorporate lap-time and pit-stop data
+* Add predictive modeling for race outcomes
+* Deploy an interactive Streamlit dashboard
+* Compare teammate performance within the same constructor
 
-Incorporate weather and safety car data
+---
 
-Add lap-level telemetry for advanced strategy analysis
+## 📜 License
 
-Deploy an interactive Streamlit dashboard
+This project is intended for **educational and analytical purposes only**.
+Formula 1 data is sourced from publicly available datasets.
 
-Explore predictive modeling for race outcomes
 
-📌 Why This Project Matters
-
-This project demonstrates:
-
-Real-world data handling and feature engineering
-
-Analytical thinking and metric design
-
-Practical application of machine learning (unsupervised learning & PCA)
-
-Strong visualization and storytelling skills
